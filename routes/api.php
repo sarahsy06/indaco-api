@@ -14,14 +14,22 @@ use Illuminate\Http\Request;
 */
 
 
+Route::post('/login', 'UsersController@ramenLogin');
+Route::post('/check', 'UsersController@ramenCheck');
+Route::post('/register', 'UsersController@create');
 Route::group(['prefix' => 'users'], function(){
-    Route::get('/','UserController@getCollection');
-    Route::get('/{id}', 'UserController@getItem'); 
-        Route::post('/', 'UserController@postItem');
-        Route::put('/{id}', 'UserController@putItem');
-        Route::post('/{id}/update', 'UserController@putItem');
-        Route::delete('/{id}', 'UserController@deleteItem');
+    Route::get('/','UsersController@getCollection');
+    Route::get('/{id}', 'UsersController@getItem'); 
+    Route::get('/register', 'UsersController@getRegister');
+    // Route::group(['middleware' => 'jwt'], function(){
+        Route::post('/', 'UsersController@postItem');
+        Route::put('/{id}', 'UsersController@putItem');
+        Route::post('/{id}/update', 'UsersController@putItem');
+        Route::delete('/{id}', 'UsersController@deleteItem');
 });
+Route::post('/users/{id}/add_roles', 'UsersController@addRoles');
+Route::post('/users/{id}/remove_roles', 'UsersController@removeRoles');
+Route::post('/register', 'UsersController@register');
 
 Route::group(['prefix' => 'projects'], function(){
     Route::get('/','ProjectController@getCollection');

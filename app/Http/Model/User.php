@@ -31,14 +31,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'remember_token',
     ];
 
     protected $rules = [
         "store" => [
+            "first_name" => "required",
             "phone_number" => "required|unique:users|min:7",
             "email" => "required|unique:users|email",
-            "password"=>"required",
+            "password"=>"required|confirmed",
         ],
         "update" => []
     ];
@@ -50,6 +51,9 @@ class User extends Authenticatable
         } else {
             return [];
         }
+    }
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = \Hash::make($value);
     }
 
 }
