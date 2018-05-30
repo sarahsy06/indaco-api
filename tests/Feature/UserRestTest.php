@@ -74,23 +74,7 @@ class UserRestTest extends BaseRestTest
                     'token'
                 ]
             ]);
-    }
 
-    public function checkEmail(){
-        $response = $this->post('/api/check', [
-            'email' => 'dimassrio@gmail.com',
-            'type' => 'email'
-        ]);
-
-        $response = $this->post('/api/check', [
-            'username' => 'dimassrio',
-            'type' => 'username'
-        ]);
-
-        $response = $this->post('/api/check', [
-            'phone_number' => '0987654321',
-            'type' => 'phone_number'
-        ]);
 
         $response->assertStatus(200)
             ->assertJsonStructure([

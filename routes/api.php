@@ -14,22 +14,25 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('/login', 'UsersController@ramenLogin');
-Route::post('/check', 'UsersController@ramenCheck');
-Route::post('/register', 'UsersController@create');
+Route::post('/login', 'UserController@ramenLogin');
+Route::post('/check', 'UserController@ramenCheck');
+Route::post('/register', 'UserController@create');
 Route::group(['prefix' => 'users'], function(){
-    Route::get('/','UsersController@getCollection');
-    Route::get('/{id}', 'UsersController@getItem'); 
-    Route::get('/register', 'UsersController@getRegister');
-    // Route::group(['middleware' => 'jwt'], function(){
-        Route::post('/', 'UsersController@postItem');
-        Route::put('/{id}', 'UsersController@putItem');
-        Route::post('/{id}/update', 'UsersController@putItem');
-        Route::delete('/{id}', 'UsersController@deleteItem');
+    Route::get('/','UserController@getCollection');
+    Route::get('/{id}', 'UserController@getItem'); 
+    Route::get('/register', 'UserController@getRegister');
+    Route::post('/', 'UserController@postItem');
+    Route::put('/{id}', 'UserController@putItem');
+    Route::post('/{id}/update', 'UserController@putItem');
+    Route::delete('/{id}', 'UserController@deleteItem');
+
 });
-Route::post('/users/{id}/add_roles', 'UsersController@addRoles');
-Route::post('/users/{id}/remove_roles', 'UsersController@removeRoles');
-Route::post('/register', 'UsersController@register');
+Route::post('/users/{id}/add_roles', 'UserController@addRoles');
+Route::post('/users/{id}/remove_roles', 'UserController@removeRoles');
+Route::post('/register', 'UserController@register');
+// Route::post('/register', 'UserController@postRegister');
+Route::get('/register', 'UserController@register');
+Route::get('/register', 'UserController@getRegister');
 
 Route::group(['prefix' => 'projects'], function(){
     Route::get('/','ProjectController@getCollection');
@@ -47,4 +50,13 @@ Route::group(['prefix' => 'points'], function(){
         Route::put('/{id}', 'PointController@putItem');
         Route::post('/{id}/update', 'PointController@putItem');
         Route::delete('/{id}', 'PointController@deleteItem');
+});
+
+Route::group(['prefix' => 'roles'], function(){
+    Route::get('/','RoleController@getCollection');
+    Route::get('/{id}', 'RoleController@getItem');  
+        Route::post('/', 'RoleController@postItem');
+        Route::put('/{id}', 'RoleController@putItem');
+        Route::post('/{id}/update', 'RoleController@putItem');
+        Route::delete('/{id}', 'RoleController@deleteItem');
 });

@@ -31,15 +31,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password'  
     ];
 
     protected $rules = [
         "store" => [
-            "first_name" => "required",
             "phone_number" => "required|unique:users|min:7",
             "email" => "required|unique:users|email",
-            "password"=>"required|confirmed",
+            "password"=>'required|string|min:6|confirmed',
         ],
         "update" => []
     ];
@@ -55,5 +54,15 @@ class User extends Authenticatable
     public function setPasswordAttribute($value){
         $this->attributes['password'] = \Hash::make($value);
     }
+
+    public function roles(){
+        return $this->belongsToMany('App\Http\Model\Role');
+    }
+ 
+    protected $transformer = 'App\Http\Transformer\UsersTransformer';
+ 
+        public function getTransformer(){
+            return app($this->transformer); // Which need to be instantiated from League\Fractal\TransformerAbstract
+        }  
 
 }
