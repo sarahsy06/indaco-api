@@ -30,9 +30,9 @@ Route::group(['prefix' => 'users'], function(){
 Route::post('/users/{id}/add_roles', 'UserController@addRoles');
 Route::post('/users/{id}/remove_roles', 'UserController@removeRoles');
 Route::post('/register', 'UserController@register');
-// Route::post('/register', 'UserController@postRegister');
 Route::get('/register', 'UserController@register');
-Route::get('/register', 'UserController@getRegister');
+Route::post('/login', 'UserController@login');
+Route::get('/login', 'UserController@login');
 
 Route::group(['prefix' => 'projects'], function(){
     Route::get('/','ProjectController@getCollection');

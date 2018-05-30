@@ -65,4 +65,19 @@ class UserController extends RestController
             $user->roles()->attach($role->id);
         return response()->createdResponse($result);
     }
+
+    	
+	public function login(Request $request){
+        try {
+            $request = RestRequestFactory::createRequest($this->model, "login");
+        } catch (ValidationException $e) {
+            return response()->exceptionResponse($e);
+        }
+        $credentials = $request->only('email', 'password');
+        if($credentials["email"] == null && $credentials["password"] == null)
+        {
+            $credentials = $request->json()->all();
+        }
+                
+    } 
 }
