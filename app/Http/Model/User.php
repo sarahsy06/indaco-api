@@ -44,6 +44,9 @@ class User extends Authenticatable
         "login" => [
             "email" => "required|unique:users|email",
             "password"=>'required|string|min:6',
+        ],
+        "forgot_password" => [
+            "email" => "required|unique:users|email",
         ]
     ];
     
