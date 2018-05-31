@@ -61,8 +61,6 @@ class UserController extends RestController
             }
             $result = $this->processor->postItemStandard($request);
             $user = User::find($result['data']['id']);
-            $role = Role::where('slug', 'users')->get()->first();
-            $user->roles()->attach($role->id);
         return response()->createdResponse($result);
     }
 
@@ -80,23 +78,5 @@ class UserController extends RestController
         }
                 
     } 
-
-    public function forgot_password(Request $request){
-        try {
-            $request = RestRequestFactory::createRequest($this->model, "forgot_password");
-        } catch (ValidationException $e) {
-            return response()->exceptionResponse($e);
-        }
-        $credentials = $request->only('email');
-        if($credentials["forgot_password"] == null)
-        {
-            $credentials = $request->json()->all();
-        }
-
-        $user = $this->model->where('email',$credentials["forgot_password"])->first();
-        $user->roles;
-        $token = JWTAuth::fromUser($user);
-
-    }
 
 }

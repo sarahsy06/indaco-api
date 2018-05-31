@@ -33,8 +33,8 @@ Route::post('/register', 'UserController@register');
 Route::get('/register', 'UserController@register');
 Route::post('/login', 'UserController@login');
 Route::get('/login', 'UserController@login');
-Route::post('/password/reset','UserController@forgot_password');
-Route::get('/password/reset','UserController@forgot_password');
+// Route::post('/password/reset','UserController@forgot_password');
+// Route::get('/password/reset','UserController@forgot_password');
 
 Route::group(['prefix' => 'projects'], function(){
     Route::get('/','ProjectController@getCollection');
