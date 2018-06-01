@@ -66,17 +66,18 @@ class UserController extends RestController
 
     	
 	public function login(Request $request){
+        // dd('test');
         try {
             $request = RestRequestFactory::createRequest($this->model, "login");
         } catch (ValidationException $e) {
             return response()->exceptionResponse($e);
         }
-        $credentials = $request->only('email', 'password');
-        if($credentials["email"] == null && $credentials["password"] == null)
-        {
+        $credentials =  $request -> only('email','password');
+        if($credentials["email"] == null && $credentials["password"] == null){
             $credentials = $request->json()->all();
         }
-                
-    } 
+
+        
+    }
 
 }

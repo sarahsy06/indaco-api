@@ -42,9 +42,9 @@ class User extends Authenticatable
         ],
         "update" => [],
         "login" => [
-            "email" => "required|unique:users|email",
+            "email" => "required|email",
             "password"=>'required|string|min:6',
-        ],
+        ]
     ];
     
     public function getRules($key = null)

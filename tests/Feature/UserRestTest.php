@@ -36,11 +36,7 @@ class UserRestTest extends BaseRestTest
         $result['email'] = $faker->email;
         $result['password'] = \Hash::make(12345678);
         $result['cities_id'] = rand(0, 100);
-        $result['employee_id'] = 'EMP'.rand(1000, 9999);
-        $result['organization_id'] = rand(0, 100);
         $result['address'] = $faker->address;
-        $result['username'] = $faker->userName;
-        $result['profile_picture'] = $faker->imageGenerator();
         $result['phone_number'] = str_replace('-', '', str_replace(' ','',$faker->mobileNumber));
         return $result;
     }

@@ -13,7 +13,8 @@
         "laravel/tinker": "^1.0",
         "ordent/ramenauth": "^0.0.1",
         "ordent/ramenrest": "^0.0.49",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "tymon/jwt-auth": "0.5.*"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
@@ -62,4 +63,6 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true
+    
 }
+
