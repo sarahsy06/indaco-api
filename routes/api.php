@@ -14,13 +14,11 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('/login', 'UserController@ramenLogin');
-Route::post('/check', 'UserController@ramenCheck');
-Route::post('/register', 'UserController@create');
+
 Route::group(['prefix' => 'users'], function(){
     Route::get('/','UserController@getCollection');
     Route::get('/{id}', 'UserController@getItem'); 
-    Route::get('/register', 'UserController@getRegister');
+    // Route::get('/register', 'UserController@getRegister');
     Route::post('/', 'UserController@postItem');
     Route::put('/{id}', 'UserController@putItem');
     Route::post('/{id}/update', 'UserController@putItem');
@@ -31,8 +29,18 @@ Route::post('/users/{id}/add_roles', 'UserController@addRoles');
 Route::post('/users/{id}/remove_roles', 'UserController@removeRoles');
 Route::post('/register', 'UserController@register');
 Route::get('/register', 'UserController@register');
-Route::post('/login', 'UserController@login');
+// Route::post('/login', 'UserController@login');
 Route::get('/login', 'UserController@login')->middleware('auth.basic');
+Route::post('/login', 'UserController@ramenLogin');
+Route::post('/check', 'UserController@ramenCheck');
+// Route::post('/register', 'UserController@create');
+// Route::get('/register', 'UserController@getRegister');
+
+Route::get('password/email', ['as' => 'password/email', 'uses' => 'Auth\PasswordController@getEmail']);
+// Route::post('password/email', 'Auth\PasswordController@postEmail');
+Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+Route::post('password/reset', 'Auth\PasswordController@reset');
 
 Route::group(['prefix' => 'projects'], function(){
     Route::get('/','ProjectController@getCollection');

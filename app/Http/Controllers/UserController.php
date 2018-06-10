@@ -9,6 +9,7 @@ use App\Http\Model\User;
 use App\Http\Model\Role;
 use Ordent\RamenRest\Requests\RestRequestFactory;
 use Illuminate\Validation\ValidationException;
+use App\Http\Controllers\PasswordResetController;
 
 class UserController extends RestController
 {
@@ -66,7 +67,6 @@ class UserController extends RestController
 
     	
 	public function login(Request $request){
-        // dd('test');
         try {
             $request = RestRequestFactory::createRequest($this->model, "login");
         } catch (ValidationException $e) {
@@ -76,6 +76,29 @@ class UserController extends RestController
         if($credentials["email"] == null && $credentials["password"] == null){
             $credentials = $request->json()->all();
         }
+
+        try{
+            if (! $token = AuthTrait::attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 401);
+            }
+        }catch(Exception $e){
+            return response()->json(['error' => 'could_not_create_token'], 500);
+        }
+        
+        $user = $this->model->where('email',$credentials["email"])->first();
+        $user->roles;
+        $token = AuthTrait::fromUser($user);
+
+
+        if(count($user->role)){
+            if(env('APP_ENV') == "production"){
+                return response()->json(['data' => $user, 'token' => $token], 200)->cookie('token', $token, 60, "/", $request->getHttpHost(), true, true);
+            }else{
+                return response()->json(['data' => $user, 'token' => $token], 200)->cookie('token', $token, 60, "/", "localhost");
+            }          
+        }else{
+            return response()->json(['error' => 'This account is not activated yet'], 403);
+        }        
 
         
     }
