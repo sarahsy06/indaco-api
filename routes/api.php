@@ -41,6 +41,7 @@ Route::get('password/email', ['as' => 'password/email', 'uses' => 'Auth\Password
 Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
 Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
 Route::post('password/reset', 'Auth\PasswordController@reset');
+Route::post('/refresh','\App\Http\Controllers\UserController@refreshToken');
 
 Route::group(['prefix' => 'projects'], function(){
     Route::get('/','ProjectController@getCollection');

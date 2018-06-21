@@ -67,6 +67,18 @@ class UserController extends RestController
 
     	
 	public function login(Request $request){
+        $validator = Validator::make($request->all(), [
+            'role_id' => 'required|exists:roles,id'
+        ]);
+
+        if($validator->fails()){
+            throw ValidationException::withMessages($validator->errors()->getMessages());
+        }
+        $type = head(array_keys(array_except($request->all(), 'password')));
+        $roles = $request->input('roles', false);
+        return $this->typeLogin($request[$type], $request->password, $type, $roles);
+
+
         try {
             $request = RestRequestFactory::createRequest($this->model, "login");
         } catch (ValidationException $e) {
@@ -102,5 +114,7 @@ class UserController extends RestController
 
         
     }
+
+    
 
 }
