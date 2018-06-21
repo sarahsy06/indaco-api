@@ -10,6 +10,7 @@ use App\Http\Model\Role;
 use Ordent\RamenRest\Requests\RestRequestFactory;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\PasswordResetController;
+use Validator;
 
 class UserController extends RestController
 {
@@ -41,7 +42,10 @@ class UserController extends RestController
 
     public function removeRoles(Request $request, $id){
         $validator = \Validator::make($request->all(), [
-            'role_id' => 'required|exists:roles,id'
+            'email' => 'requiredWithoutAll:phone,username',
+            'username' => 'requiredWithoutAll:phone,email',
+            'phone' => 'requiredWithoutAll:email,username',
+            'password' => 'required'
         ]);
 
         if($validator->fails()){
@@ -68,7 +72,10 @@ class UserController extends RestController
     	
 	public function login(Request $request){
         $validator = Validator::make($request->all(), [
-            'role_id' => 'required|exists:roles,id'
+            'email' => 'requiredWithoutAll:phone,username',
+            'username' => 'requiredWithoutAll:phone,email',
+            'phone' => 'requiredWithoutAll:email,username',
+            'password' => 'required'
         ]);
 
         if($validator->fails()){

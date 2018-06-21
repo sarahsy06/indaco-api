@@ -31,7 +31,7 @@ Route::post('/register', 'UserController@register');
 Route::get('/register', 'UserController@register');
 // Route::post('/login', 'UserController@login');
 Route::get('/login', 'UserController@login')->middleware('auth.basic');
-Route::post('/login', 'UserController@ramenLogin');
+Route::post('/login', 'UserController@login');
 Route::post('/check', 'UserController@ramenCheck');
 // Route::post('/register', 'UserController@create');
 // Route::get('/register', 'UserController@getRegister');
