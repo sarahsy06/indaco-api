@@ -33,11 +33,11 @@ class PasswordResetController extends Controller
             }
             try{
                 
-                $emailTemplate = "Resources\views\passwords\email"::where('name', 'email_reset_template')->first();
+                $emailTemplate = passwords.email::where('name', 'email_reset_template')->first();
                 $user = User::where('email', $request->email)->first();
                 
-                $email['sender'] = "Resources\views\passwords\email"::where('name', 'email_address_sender')->first();
-                $email['alias'] = "Resources\views\passwords\email"::where('name', 'email_alias_seder')->first();
+                $email['sender'] = passwords.email::where('name', 'email_address_sender')->first();
+                $email['alias'] = passwords.email::where('name', 'email_alias_seder')->first();
                 $email['receiver'] = $request->email;
 
                 \Mail::send( $emailTemplate->value, ['url' => env('CLIENT_DOMAIN').'/passwordreset/'.$token, 'name' => $user->name], function($message) use($email) 
