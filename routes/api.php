@@ -33,6 +33,8 @@ Route::get('/register', 'UserController@register');
 Route::get('/login', 'UserController@login')->middleware('auth.basic');
 Route::post('/login', 'UserController@login');
 Route::post('/check', 'UserController@ramenCheck');
+Route::post('/passwordresets','PasswordResetController@reset');
+Route::get('/passwordresets','PasswordResetController@reset');
 // Route::post('/register', 'UserController@create');
 // Route::get('/register', 'UserController@getRegister');
 

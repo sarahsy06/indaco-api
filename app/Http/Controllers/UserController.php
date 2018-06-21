@@ -42,10 +42,7 @@ class UserController extends RestController
 
     public function removeRoles(Request $request, $id){
         $validator = \Validator::make($request->all(), [
-            'email' => 'requiredWithoutAll:phone,username',
-            'username' => 'requiredWithoutAll:phone,email',
-            'phone' => 'requiredWithoutAll:email,username',
-            'password' => 'required'
+            'role_id' => 'required|exists:roles,id'
         ]);
 
         if($validator->fails()){
